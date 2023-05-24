@@ -1,10 +1,11 @@
 import { FC } from 'react';
+import { Container } from 'react-bootstrap';
 
 export const MainPage: FC = () => {
   return (
-    <div>
+    <Container>
       Main Page
-    </div>
+    </Container>
   );
 };
 
