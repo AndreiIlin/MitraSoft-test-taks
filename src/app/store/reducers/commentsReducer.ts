@@ -30,7 +30,11 @@ type SetComments = {
   payload: IComment[];
 }
 
-type CommentsReducerActions = ChangeCommentsStatus | ChangeIdForCommentsFetching | SetComments
+type FetchComments = {
+  type: actionsTypes.fetchComments;
+}
+
+type CommentsReducerActions = ChangeCommentsStatus | ChangeIdForCommentsFetching | SetComments | FetchComments;
 export const commentsReducer = (state = commentsInitialState, action: CommentsReducerActions) => {
   switch (action.type) {
     case actionsTypes.changeCommentsStatus:

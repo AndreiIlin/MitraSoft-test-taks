@@ -26,7 +26,11 @@ type SetAllPosts = {
   payload: Post[];
 }
 
-type PostReducerActions = ChangePostsStatus | ChangeAllPostsPage | SetAllPosts;
+type FetchAllPosts = {
+  type: actionsTypes.fetchAllPosts;
+}
+
+type PostReducerActions = ChangePostsStatus | ChangeAllPostsPage | SetAllPosts | FetchAllPosts;
 
 export const postsReducer = (state = postsInitialState, action: PostReducerActions) => {
   switch (action.type) {
