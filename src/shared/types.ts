@@ -5,7 +5,7 @@ export interface Post {
   body: string;
 }
 
-export interface Comment {
+export interface IComment {
   postId: number;
   id: number;
   name: string;
