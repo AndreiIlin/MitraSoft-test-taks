@@ -1,7 +1,7 @@
 import { MainLayout } from 'components/mainLayout';
-import { AboutMe } from 'pages/aboutMe';
+import { AboutMePage } from 'pages/aboutMePage';
 import { MainPage } from 'pages/mainPage';
-import { UserInfo } from 'pages/userInfo';
+import { UserInfoPage } from 'pages/userInfoPage';
 import { FC } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import { pathRoutes } from 'shared/routes.ts';
@@ -13,8 +13,8 @@ const router = createBrowserRouter(
       element={<MainLayout />}
     >
       <Route index element={<MainPage />} />
-      <Route path={pathRoutes.me()} element={<AboutMe />} />
-      <Route path={pathRoutes.user()} element={<UserInfo />} />
+      <Route path={pathRoutes.me()} element={<AboutMePage />} />
+      <Route path={pathRoutes.user()} element={<UserInfoPage />} />
     </Route>,
   ),
 );

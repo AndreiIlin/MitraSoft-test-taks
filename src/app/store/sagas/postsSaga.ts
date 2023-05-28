@@ -1,4 +1,4 @@
-import { actionsTypes, changePostsStatus, setAllPosts } from 'app/store';
+import { actionsTypes, changePostsStatus, setPosts } from 'app/store';
 import { call, delay, put, select, takeEvery } from 'redux-saga/effects';
 import { getAllPosts } from 'shared/api';
 import { Post } from 'shared/types.ts';
@@ -8,7 +8,7 @@ export function* workerSaga() {
   yield put(changePostsStatus('loading'));
   const data: Post[] = yield call(() => getAllPosts(activePage));
   yield delay(500);
-  yield put(setAllPosts(data));
+  yield put(setPosts(data));
   yield put(changePostsStatus('success'));
 }
 

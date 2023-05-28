@@ -2,7 +2,7 @@ import avatar from 'assets/my_photo_medium.png';
 import { FC } from 'react';
 import { Col, Container, Image, Row } from 'react-bootstrap';
 
-export const AboutMe: FC = () => {
+export const AboutMePage: FC = () => {
   return (
     <Container className={'pt-5'}>
       <Row>

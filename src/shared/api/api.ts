@@ -15,3 +15,13 @@ export const getPostComments = async (id: number) => {
   const response = await api.get(apiRoutes.comments(id));
   return response.data;
 };
+
+export const getUserPosts = async (userId: number) => {
+  const response = await api.get(apiRoutes.userPosts(userId));
+  return response.data;
+};
+
+export const getUserInfo = async (userId: number) => {
+  const response = await api.get(apiRoutes.user(userId));
+  return response.data;
+};

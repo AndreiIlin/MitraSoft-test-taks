@@ -1,5 +1,5 @@
 import { actionsTypes } from 'app/store/actionsTypes.ts';
-import { IComment, Post } from 'shared/types.ts';
+import { IComment, IUser, Post } from 'shared/types.ts';
 
 export const changePostsStatus = (status: string) => ({
   type: actionsTypes.changePostsStatus as const,
@@ -20,8 +20,8 @@ export const fetchAllPosts = () => ({
   type: actionsTypes.fetchAllPosts as const,
 });
 
-export const setAllPosts = (posts: Post[]) => ({
-  type: actionsTypes.setAllPosts as const,
+export const setPosts = (posts: Post[]) => ({
+  type: actionsTypes.setPosts as const,
   payload: posts,
 });
 
@@ -35,7 +35,17 @@ export const fetchComments = () => ({
 });
 
 export const setComments = (comments: IComment[]) => ({
-  type: actionsTypes.setComments,
+  type: actionsTypes.setComments as const,
   payload: comments,
+});
+
+export const setCurrentUserId = (userId: number) => ({
+  type: actionsTypes.setCurrentUserId as const,
+  payload: userId,
+});
+
+export const setUserInfo = (user: IUser) => ({
+  type: actionsTypes.setUserInfo as const,
+  payload: user,
 });
 

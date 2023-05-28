@@ -1,7 +1,7 @@
-import { changePostsPage, fetchAllPosts } from 'app/store';
+import { changeIdForCommentsFetching, changePostsPage, fetchAllPosts, fetchComments } from 'app/store';
 import { PaginationBar } from 'components/paginationBar';
 import { PostsList } from 'components/postsList/PostsList.tsx';
-import { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 
@@ -15,14 +15,23 @@ export const MainPage: FC = () => {
     dispatch(fetchAllPosts());
   }, [currentPage]);
   const posts = useAppSelector(state => state.postsReducer.posts);
-  const handleChangeActivePage = (number: number) => {
-    dispatch(changePostsPage(number));
+  const postIdForCommentsFetching = useAppSelector(state => state.commentsReducer.postIdForFetch);
+
+  const callbacks = {
+    handleChangeActivePage: useCallback((number: number) => dispatch(changePostsPage(number)), []),
+    changeIdForCommentsFetching: useCallback((id: number) => dispatch(changeIdForCommentsFetching(id)), []),
+    fetchComments: useCallback(() => dispatch(fetchComments()), []),
   };
+
+
   return (
     <Container>
-      <PostsList posts={posts} postsStatus={postsStatus} />
+      <PostsList
+        posts={posts} postsStatus={postsStatus} postIdForCommentsFetching={postIdForCommentsFetching}
+        fetchComments={callbacks.fetchComments} changeIdForCommentsFetching={callbacks.changeIdForCommentsFetching}
+      />
       {posts.length && postsStatus === 'success' ? (
-        <PaginationBar activePage={currentPage} count={PAGES_COUNT} changePage={handleChangeActivePage} />
+        <PaginationBar activePage={currentPage} count={PAGES_COUNT} changePage={callbacks.handleChangeActivePage} />
       ) : null}
     </Container>
   );

@@ -21,8 +21,8 @@ type ChangeAllPostsPage = {
   type: actionsTypes.changeAllPostsPage;
   payload: number;
 }
-type SetAllPosts = {
-  type: actionsTypes.setAllPosts;
+type SetPosts = {
+  type: actionsTypes.setPosts;
   payload: Post[];
 }
 
@@ -30,7 +30,8 @@ type FetchAllPosts = {
   type: actionsTypes.fetchAllPosts;
 }
 
-type PostReducerActions = ChangePostsStatus | ChangeAllPostsPage | SetAllPosts | FetchAllPosts;
+
+type PostReducerActions = ChangePostsStatus | ChangeAllPostsPage | SetPosts | FetchAllPosts;
 
 export const postsReducer = (state = postsInitialState, action: PostReducerActions) => {
   switch (action.type) {
@@ -38,7 +39,7 @@ export const postsReducer = (state = postsInitialState, action: PostReducerActio
       return { ...state, status: action.payload };
     case actionsTypes.changeAllPostsPage:
       return { ...state, currentPage: action.payload };
-    case actionsTypes.setAllPosts:
+    case actionsTypes.setPosts:
       return { ...state, posts: action.payload };
     default:
       return state;

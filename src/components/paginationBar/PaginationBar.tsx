@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Pagination } from 'react-bootstrap';
 
 interface PaginationBarProps {
@@ -7,7 +7,7 @@ interface PaginationBarProps {
   changePage: (page: number) => void;
 }
 
-export const PaginationBar: FC<PaginationBarProps> = ({ count, activePage, changePage }) => {
+const PaginationBarWithoutMemo: FC<PaginationBarProps> = ({ count, activePage, changePage }) => {
   const cells = Array.from({ length: Math.ceil(count / 10) }, (_, index) => index + 1);
   return (
     <div className={'mt-3'}>
@@ -23,3 +23,5 @@ export const PaginationBar: FC<PaginationBarProps> = ({ count, activePage, chang
     </div>
   );
 };
+
+export const PaginationBar = memo(PaginationBarWithoutMemo)

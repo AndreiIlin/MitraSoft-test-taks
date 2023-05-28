@@ -1,28 +1,31 @@
-import { changeIdForCommentsFetching, fetchComments } from 'app/store';
 import avatar from 'assets/avatar-placeholder.png';
 import { CommentsList } from 'components/commentsList';
 import { FC, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { pathRoutes } from 'shared/routes.ts';
 import { Post } from 'shared/types.ts';
 
 interface PostCardProps {
   post: Post;
+  postIdForCommentsFetching: number;
+  changeIdForCommentsFetching: (id: number) => void;
+  fetchComments: () => void;
 }
 
-export const PostCard: FC<PostCardProps> = ({ post }) => {
+export const PostCard: FC<PostCardProps> = ({
+                                              post,
+                                              postIdForCommentsFetching,
+                                              fetchComments,
+                                              changeIdForCommentsFetching,
+                                            }) => {
   const [isCommentsShown, setIsCommentsShown] = useState(false);
-  const dispatch = useAppDispatch();
-  const fetchId = useAppSelector(state => state.commentsReducer.postIdForFetch);
   const handleToggleComments = () => {
     if (!isCommentsShown) {
       setIsCommentsShown(true);
-      if (post.id !== fetchId) {
-        console.log(post.id);
-        dispatch(changeIdForCommentsFetching(post.id));
-        dispatch(fetchComments());
+      if (post.id !== postIdForCommentsFetching) {
+        changeIdForCommentsFetching(post.id);
+        fetchComments();
       }
       return;
     }
@@ -41,7 +44,7 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
         <Card.Text>
           {post.body}
         </Card.Text>
-        <Button onClick={handleToggleComments}>Show comments</Button>
+        <Button onClick={handleToggleComments}>{isCommentsShown ? 'Hide comments' : 'Show comments'}</Button>
         {isCommentsShown && <div className={'mt-3'}>
           <CommentsList postId={post.id} />
         </div>}
@@ -49,3 +52,4 @@ export const PostCard: FC<PostCardProps> = ({ post }) => {
     </Card>
   );
 };
+
