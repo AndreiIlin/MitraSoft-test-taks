@@ -15,10 +15,10 @@ export const UserInfo: FC<UserInfoProps> = ({ user }) => {
   return (
     <div className={'d-flex flex-column gap-3 mt-3'}>
       <Row>
-        <Col xs={4}>
-          <Image src={avatar} sizes={'sm'} />
+        <Col xl={4} xs={12}>
+            <Image src={avatar} fluid />
         </Col>
-        <Col xs={8}>
+        <Col xl={8} xs={12}>
           <UserInfoBlock>
             <h2 className={'fs-2'}>{user.name} ({user.username})</h2>
             <p className={'fs-5'}>{user.address.city}, {user.address.street}, {user.address.suite}</p>

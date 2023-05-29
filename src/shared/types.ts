@@ -37,5 +37,5 @@ export interface IUser {
   };
 }
 
-
+export type SortOrder = 'asc' | 'desc';
 

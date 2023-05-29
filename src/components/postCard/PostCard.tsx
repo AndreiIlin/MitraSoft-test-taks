@@ -1,7 +1,7 @@
 import avatar from 'assets/avatar-placeholder.png';
 import { CommentsList } from 'components/commentsList';
 import { FC, useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { pathRoutes } from 'shared/routes.ts';
 import { Post } from 'shared/types.ts';
@@ -11,6 +11,8 @@ interface PostCardProps {
   postIdForCommentsFetching: number;
   changeIdForCommentsFetching: (id: number) => void;
   fetchComments: () => void;
+
+  clearSearchQuery: () => void;
 }
 
 export const PostCard: FC<PostCardProps> = ({
@@ -18,6 +20,7 @@ export const PostCard: FC<PostCardProps> = ({
                                               postIdForCommentsFetching,
                                               fetchComments,
                                               changeIdForCommentsFetching,
+                                              clearSearchQuery,
                                             }) => {
   const [isCommentsShown, setIsCommentsShown] = useState(false);
   const handleToggleComments = () => {
@@ -33,22 +36,28 @@ export const PostCard: FC<PostCardProps> = ({
   };
 
   return (
-    <Card className={'flex-row p-3 gap-3'}>
-      <Link to={pathRoutes.userById(post.userId)} className={'flex-grow-0 flex-shrink-0'}>
+    <Card className={'p-3 '}>
+      <Row className={'justify-content-center'}>
+        <Col sm={2} xs={9}>
+      <Link to={pathRoutes.userById(post.userId)} className={'flex-grow-0 flex-shrink-0'} onClick={clearSearchQuery}>
         <Card.Img src={avatar} />
       </Link>
-      <Card.Body>
-        <Card.Title>
-          {post.title}
-        </Card.Title>
-        <Card.Text>
-          {post.body}
-        </Card.Text>
-        <Button onClick={handleToggleComments}>{isCommentsShown ? 'Hide comments' : 'Show comments'}</Button>
-        {isCommentsShown && <div className={'mt-3'}>
-          <CommentsList postId={post.id} />
-        </div>}
-      </Card.Body>
+        </Col>
+        <Col sm={10} xs={12}>
+          <Card.Body>
+            <Card.Title>
+              {post.title}
+            </Card.Title>
+            <Card.Text>
+              {post.body}
+            </Card.Text>
+            <Button onClick={handleToggleComments}>{isCommentsShown ? 'Hide comments' : 'Show comments'}</Button>
+            {isCommentsShown && <div className={'mt-3'}>
+              <CommentsList postId={post.id} />
+            </div>}
+          </Card.Body>
+        </Col>
+      </Row>
     </Card>
   );
 };

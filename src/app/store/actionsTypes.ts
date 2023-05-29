@@ -9,5 +9,7 @@ export enum actionsTypes {
   changeIdForCommentsFetching = 'CHANGE_ID_FOR_COMMENTS_CHANGING',
   setCurrentUserId = 'SET_CURRENT_USER_ID',
   setUserInfo = 'SET_USER_INFO',
-  fetchUsersPosts = 'FETCH_USER_POSTS'
+  changeSortOrder = 'CHANGE_SORT_ORDER',
+  changeSearchQuery = 'CHANGE_SEARCH_QUERY',
+  clearSearchQuery = 'CLEAR_SEARCH_QUERY',
 }

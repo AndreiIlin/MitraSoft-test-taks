@@ -1,5 +1,5 @@
 import { actionsTypes } from 'app/store/actionsTypes.ts';
-import { IComment, IUser, Post } from 'shared/types.ts';
+import { IComment, IUser, Post, SortOrder } from 'shared/types.ts';
 
 export const changePostsStatus = (status: string) => ({
   type: actionsTypes.changePostsStatus as const,
@@ -49,3 +49,16 @@ export const setUserInfo = (user: IUser) => ({
   payload: user,
 });
 
+export const changeSortOrder = (order: SortOrder) => ({
+  type: actionsTypes.changeSortOrder as const,
+  payload: order,
+});
+
+export const changeSearchQuery = (query: string) => ({
+  type: actionsTypes.changeSearchQuery as const,
+  payload: query,
+});
+
+export const clearSearchQuery = () => ({
+  type: actionsTypes.clearSearchQuery as const,
+});

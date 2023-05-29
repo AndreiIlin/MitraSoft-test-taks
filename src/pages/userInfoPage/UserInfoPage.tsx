@@ -1,4 +1,12 @@
-import { changeIdForCommentsFetching, changePostsPage, fetchComments, setCurrentUserId } from 'app/store';
+import {
+  changeIdForCommentsFetching,
+  changePostsPage,
+  changeSearchQuery,
+  changeSortOrder,
+  clearSearchQuery,
+  fetchComments,
+  setCurrentUserId,
+} from 'app/store';
 import { PostsList } from 'components/postsList/PostsList.tsx';
 import { UserInfo } from 'components/userInfo';
 import { FC, useCallback, useEffect } from 'react';
@@ -6,6 +14,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { pathRoutes } from 'shared/routes.ts';
+import { SortOrder } from 'shared/types';
 
 export const UserInfoPage: FC = () => {
   const { userId } = useParams();
@@ -15,35 +24,44 @@ export const UserInfoPage: FC = () => {
   const posts = useAppSelector(state => state.postsReducer.posts);
   const postIdForCommentsFetching = useAppSelector(state => state.commentsReducer.postIdForFetch);
   const postsStatus = useAppSelector(state => state.postsReducer.status);
+  const sortOrder = useAppSelector(state => state.postsReducer.sortOrder);
+  const searchQuery = useAppSelector(state => state.postsReducer.searchQuery);
 
   const callbacks = {
     handleChangeActivePage: useCallback((number: number) => dispatch(changePostsPage(number)), []),
     changeIdForCommentsFetching: useCallback((id: number) => dispatch(changeIdForCommentsFetching(id)), []),
     fetchComments: useCallback(() => dispatch(fetchComments()), []),
+    changeSortOrder: useCallback((order: SortOrder) => dispatch(changeSortOrder(order)), []),
+    changeSearchQuery: useCallback((query: string) => dispatch(changeSearchQuery(query)), []),
+    clearSearchQuery: useCallback(() => dispatch(clearSearchQuery()), []),
   };
 
   useEffect(() => {
     if (userId) {
       dispatch(setCurrentUserId(+userId));
     }
-  }, []);
+  }, [sortOrder, searchQuery]);
 
   return (
     <Container>
       <Row>
-        <Col xs={5}>
+        <Col xl={5} md={3}>
           <Button
             as={Link}
             to={pathRoutes.main()}
             className={'mt-3'}
             variant={'outline-primary'}
+            onClick={callbacks.clearSearchQuery}
           >Back to main page</Button>
           <UserInfo user={user} />
         </Col>
-        <Col xs={7}>
+        <Col xl={7} md={9}>
           <PostsList
             posts={posts} postsStatus={postsStatus} postIdForCommentsFetching={postIdForCommentsFetching}
             fetchComments={callbacks.fetchComments} changeIdForCommentsFetching={callbacks.changeIdForCommentsFetching}
+            changeSearchQuery={callbacks.changeSearchQuery} changeSortOrder={callbacks.changeSortOrder}
+            searchQuery={searchQuery} sortOrder={sortOrder}
+            clearSearchQuery={callbacks.clearSearchQuery}
           />
         </Col>
       </Row>
