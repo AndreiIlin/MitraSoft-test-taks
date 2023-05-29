@@ -7,11 +7,15 @@ export function* workerSaga() {
   const activePage: number = yield select(state => state.postsReducer.currentPage);
   const sortOrder: SortOrder = yield select(state => state.postsReducer.sortOrder);
   const searchQuery: string = yield select(state => state.postsReducer.searchQuery);
-  yield put(changePostsStatus('loading'));
-  const data: Post[] = yield call(() => getAllPosts(activePage, sortOrder, searchQuery));
-  yield delay(500);
-  yield put(setPosts(data));
-  yield put(changePostsStatus('success'));
+  try {
+    yield put(changePostsStatus('loading'));
+    const data: Post[] = yield call(() => getAllPosts(activePage, sortOrder, searchQuery));
+    yield delay(500);
+    yield put(setPosts(data));
+    yield put(changePostsStatus('success'));
+  } catch {
+    yield put(changePostsStatus('error'));
+  }
 }
 
 export function* watchSaga() {

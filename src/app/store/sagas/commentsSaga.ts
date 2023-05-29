@@ -5,10 +5,14 @@ import { IComment } from 'shared/types.ts';
 
 export function* workerSaga() {
   const fetchingId: number = yield select(state => state.commentsReducer.postIdForFetch);
-  yield put(changeCommentsStatus('loading'));
-  const data: IComment[] = yield call(() => getPostComments(fetchingId));
-  yield put(setComments(data));
-  yield put(changeCommentsStatus('success'));
+  try {
+    yield put(changeCommentsStatus('loading'));
+    const data: IComment[] = yield call(() => getPostComments(fetchingId));
+    yield put(setComments(data));
+    yield put(changeCommentsStatus('success'));
+  } catch {
+    yield put(changeCommentsStatus('error'));
+  }
 }
 
 export function* watchSaga() {

@@ -18,7 +18,7 @@ export const CommentsList: FC<CommentsListProps> = ({ postId }) => {
       {currentPostComments.length ? currentPostComments.map(comment => (
         <CommentCard comment={comment} key={comment.id} />
       )) : null}
-      {commentsStatus === 'error' && !currentPostComments.length && <h2 className={'fs-2 text-center'}>Oops, something goes wrong!</h2>}
+      {commentsStatus === 'error' && !currentPostComments.length && <h2 className={'fs-4'}>Oops, something goes wrong! Try again later...</h2>}
     </div>
   );
 };
