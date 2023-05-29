@@ -1,10 +1,10 @@
 import { SortOrder } from 'shared/types.ts';
 
 export const pathRoutes = {
-  main: () => 'MitraSoft-test-task/',
-  me: () => 'MitraSoft-test-task/me',
-  user: () => 'MitraSoft-test-task/users/:userId',
-  userById: (id: number) => `MitraSoft-test-task/users/${id}`,
+  main: () => '/',
+  me: () => '/me',
+  user: () => '/users/:userId',
+  userById: (id: number) => `/users/${id}`,
 };
 export const apiRoutes = {
   main: () => 'https://jsonplaceholder.typicode.com',

@@ -10,7 +10,7 @@ import {
 import { PostsList } from 'components/postsList/PostsList.tsx';
 import { UserInfo } from 'components/userInfo';
 import { FC, useCallback, useEffect } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { pathRoutes } from 'shared/routes.ts';
@@ -46,13 +46,13 @@ export const UserInfoPage: FC = () => {
     <Container>
       <Row>
         <Col xl={5} md={3}>
-          <Button
-            as={Link}
+          <Link
             to={pathRoutes.main()}
-            className={'mt-3'}
-            variant={'outline-primary'}
             onClick={callbacks.clearSearchQuery}
-          >Back to main page</Button>
+            className={'mt-3 btn btn-outline-primary'}
+          >
+            Back to main page
+          </Link>
           <UserInfo user={user} />
         </Col>
         <Col xl={7} md={9}>

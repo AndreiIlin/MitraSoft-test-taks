@@ -13,5 +13,4 @@ export default defineConfig({
       assets: '/src/assets',
     },
   },
-  base: '/MitraSoft-test-task/',
 });
